@@ -1,5 +1,8 @@
 package sed.prices;
 
+import java.io.ObjectInputStream.GetField;
+import java.util.Date;
+
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
@@ -9,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.os.Build;
 
 public class Start extends Activity {
@@ -22,6 +26,8 @@ public class Start extends Activity {
 			getFragmentManager().beginTransaction()
 					.add(R.id.container, new PlaceholderFragment()).commit();
 		}
+		
+		
 	}
 
 	@Override
@@ -57,6 +63,11 @@ public class Start extends Activity {
 				Bundle savedInstanceState) {
 			View rootView = inflater.inflate(R.layout.fragment_start,
 					container, false);
+
+			TextView tv = (TextView)rootView.findViewById(R.id.tv_field);
+			tv.setText(""+(""+new Date()).split("\\s")[3]);
+
+			
 			return rootView;
 		}
 	}
