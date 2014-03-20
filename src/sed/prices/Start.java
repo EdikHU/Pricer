@@ -9,6 +9,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class Start extends Activity {
@@ -18,12 +21,23 @@ public class Start extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start);
 
-		if (savedInstanceState == null) {
-			getFragmentManager().beginTransaction()
-					.add(R.id.container, new PlaceholderFragment()).commit();
-		}
+		FrameLayout layout = (FrameLayout)findViewById(R.id.start);
+		
+		LinearLayout la = new LinearLayout(this);
+		la.setOrientation(LinearLayout.VERTICAL);
+		layout.addView(la);
+		
+		la.addView(new Button(this));
+		la.addView(new Button(this));
+		la.addView(new Button(this));
+		la.addView(new Button(this));
+		la.addView(new Button(this));
 		
 		
+//		if (savedInstanceState == null) {
+//			getFragmentManager().beginTransaction()
+//					.add(R.id.container, new PlaceholderFragment()).commit();
+//		}
 	}
 
 	@Override
