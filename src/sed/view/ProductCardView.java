@@ -2,6 +2,7 @@ package sed.view;
 
 import sed.data.ModelProductCardView;
 import android.content.Context;
+import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 public class ProductCardView extends FrameLayout{
 
 	private Context context;
+	private LinearLayout layout;
 
 	private ProductCardView(Context context) {
 		super(context);
@@ -21,7 +23,7 @@ public class ProductCardView extends FrameLayout{
 	}
 
 	private void init(ModelProductCardView model) {
-		LinearLayout layout = new LinearLayout(context);
+		layout = new LinearLayout(context);
 		layout.setOrientation(LinearLayout.VERTICAL);
 		this.addView(layout);
 
@@ -41,6 +43,14 @@ public class ProductCardView extends FrameLayout{
 		prices.setTag("prices");
 		layout.addView(prices);
 		
+	}
+
+	public int modGetChildCount() {
+		return layout.getChildCount();
+	}
+
+	public View modGetChildAt(int index) {
+		return layout.getChildAt(index);
 	}
 
 

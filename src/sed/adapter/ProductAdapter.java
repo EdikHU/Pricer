@@ -9,7 +9,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class ProductAdapter extends BaseAdapter{
@@ -50,10 +49,10 @@ public class ProductAdapter extends BaseAdapter{
 		return view;
 	}
 
-	private void fillingViewFields(ProductCardView container, ProductCard product) {
-		LinearLayout view = (LinearLayout) container.getChildAt(0);
-		for (int i =0;i<view.getChildCount();i++){
-			View fieldOfView = view.getChildAt(i);
+	private void fillingViewFields(ProductCardView view, ProductCard product) {
+		//LinearLayout view = (LinearLayout) container.getChildAt(0);
+		for (int i =0;i<view.modGetChildCount();i++){
+			View fieldOfView = view.modGetChildAt(i);
 			
 			String nameField = (String)fieldOfView.getTag();
 			System.out.println("  >> "+fieldOfView.getClass().getName());
