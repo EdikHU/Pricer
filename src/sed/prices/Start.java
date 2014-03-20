@@ -1,6 +1,12 @@
 package sed.prices;
 
+import java.util.ArrayList;
 import java.util.Date;
+
+import sed.adapter.ProductAdapter;
+import sed.data.ListPrices;
+import sed.data.Price;
+import sed.data.ProductCard;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
@@ -11,7 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 
 public class Start extends Activity {
@@ -22,17 +28,50 @@ public class Start extends Activity {
 		setContentView(R.layout.start);
 
 		FrameLayout layout = (FrameLayout)findViewById(R.id.start);
+		ListView listView = new ListView(this);
+		layout.addView(listView);
+		listView.addHeaderView(new Button(this));
 		
-		LinearLayout la = new LinearLayout(this);
-		la.setOrientation(LinearLayout.VERTICAL);
-		layout.addView(la);
 		
-		la.addView(new Button(this));
-		la.addView(new Button(this));
-		la.addView(new Button(this));
-		la.addView(new Button(this));
-		la.addView(new Button(this));
+		ArrayList<ProductCard> products = new ArrayList<ProductCard>();
+		products.add(new ProductCard("Любительская","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская2","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская3","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская4","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская5","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская6","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская7","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская8","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская9","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская0","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская1","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская2","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская3","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+		products.add(new ProductCard("Любительская4","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
 		
+		ProductAdapter adapter = new ProductAdapter(this,products);
+		listView.setAdapter(adapter);
+		
+//		LinearLayout la = new LinearLayout(this);
+//		la.setOrientation(LinearLayout.VERTICAL);
+//		layout.addView(la);
+//		
+//		
+//		Button btn1 = new Button(this);
+//		btn1.setTag("btn1");
+//		la.addView(btn1);
+//		la.addView(new Button(this));
+//		la.addView(new Button(this));
+//		la.addView(new Button(this));
+//		la.addView(new Button(this));
+//		
+//		View fndBtn1 = layout.findViewWithTag("btn1");
+//		String ss = fndBtn1.getClass().getCanonicalName();
+//		System.out.println("--> "+ss +" ["+fndBtn1.getClass()+"]");
+//		Button trnsfm = (Button)fndBtn1.getClass().cast(fndBtn1);
+//		trnsfm.setText("here");
+//		
+		//layout.getch
 		
 //		if (savedInstanceState == null) {
 //			getFragmentManager().beginTransaction()
