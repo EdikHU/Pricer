@@ -30,14 +30,12 @@ public class ProductAdapterDB extends CursorAdapter{
 	}
 	
 	private void fillingViewFields(ProductCardView view, ProductCard product) {
-		//LinearLayout view = (LinearLayout) container.getChildAt(0);
+
 		for (int i =0;i<view.modGetChildCount();i++){
 			View fieldOfView = view.modGetChildAt(i);
-			
 			String nameField = (String)fieldOfView.getTag();
-			System.out.println("  >> "+fieldOfView.getClass().getName());
+
 			if (nameField != null && product.getFieldByName(nameField)!= null){
-				System.out.println("   > ["+nameField+"] "+product.getFieldByName(nameField));
 				((TextView)fieldOfView).setText( (String)product.getFieldByName(nameField).toString() );
 			}
 			
