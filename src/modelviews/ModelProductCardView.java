@@ -1,4 +1,4 @@
-package sed.data;
+package modelviews;
 
 public class ModelProductCardView {
 

@@ -3,54 +3,117 @@ package sed.prices;
 import java.util.ArrayList;
 import java.util.Date;
 
+import db.DB;
+
 import sed.adapter.ProductAdapter;
+import sed.adapter.ProductAdapterDB;
 import sed.data.ListPrices;
 import sed.data.Price;
 import sed.data.ProductCard;
 import android.app.Activity;
 import android.app.Fragment;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class Start extends Activity {
+
+	private DB db;
+	private ProductAdapterDB adapter;
+	private Cursor cursor;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.start);
 
-		FrameLayout layout = (FrameLayout)findViewById(R.id.start);
+		FrameLayout frLayout = (FrameLayout)findViewById(R.id.start);
+		
+		LinearLayout layout = new LinearLayout(this);
+		layout.setOrientation(LinearLayout.VERTICAL);
+		frLayout.addView(layout);
+		
+		//-- DB here ------
+		db = new DB(this);
+		db.open();
+		
+		Button btn = new Button(this);
+		btn.setText("Show");
+		layout.addView(btn);
+		btn.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Cursor c = db.getAllData();
+				if(c.moveToFirst()){
+					do{
+						System.out.println("--> ("+c.getColumnCount()+") ["+c.getString(c.getColumnIndex(DB.T_PROD_NAME))+"]["+c.getString(c.getColumnIndex(DB.T_PROD_GROUP))+"]["+c.getString(c.getColumnIndex(DB.T_PROD_CATEGORY))+"]");
+					}while(c.moveToNext());
+				}
+			}
+		});
+
+		Button btn2 = new Button(this);
+		btn2.setText("Add");
+		btn2.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				db.add(new ProductCard("Любительская "+(""+new Date()).split("\\s")[3],"Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));
+				//adapter.notifyDataSetChanged();
+				cursor.requery();
+			}
+		});
+		layout.addView(btn2);
+		
+		Button btn3 = new Button(this);
+		btn3.setText("Del");
+		btn3.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				db.delAllData();
+				//adapter.notifyDataSetChanged();
+				cursor.requery();
+			}
+		});
+		layout.addView(btn3);
+		//------------
+		
 		ListView listView = new ListView(this);
 		layout.addView(listView);
 		listView.addHeaderView(new Button(this));
 		
-		
-		ArrayList<ProductCard> products = new ArrayList<ProductCard>();
-		products.add(new ProductCard("Любительская","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская2","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская3","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская4","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская5","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская6","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская7","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская8","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская9","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская0","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская1","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская2","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская3","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		products.add(new ProductCard("Любительская4","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
-		
-		ProductAdapter adapter = new ProductAdapter(this,products);
+//		ArrayList<ProductCard> products = new ArrayList<ProductCard>();
+//		products.add(new ProductCard("Любительская","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская2","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская3","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская4","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская5","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская6","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская7","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская8","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская9","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская0","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская1","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская2","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская3","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		products.add(new ProductCard("Любительская4","Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));	
+//		ProductAdapter adapter = new ProductAdapter(this,products);
+		cursor = db.getAllData();
+		adapter = new  ProductAdapterDB(this, cursor, true);
 		listView.setAdapter(adapter);
+		
+		
+		
+		
 		
 //		LinearLayout la = new LinearLayout(this);
 //		la.setOrientation(LinearLayout.VERTICAL);
@@ -78,6 +141,16 @@ public class Start extends Activity {
 //					.add(R.id.container, new PlaceholderFragment()).commit();
 //		}
 	}
+
+	
+	
+	@Override
+	protected void onDestroy() {
+		super.onDestroy();
+		db.close();
+	}
+
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {

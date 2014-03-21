@@ -2,7 +2,8 @@ package sed.adapter;
 
 import java.util.ArrayList;
 
-import sed.data.ModelProductCardView;
+import modelviews.ModelProductCardView;
+
 import sed.data.ProductCard;
 import sed.view.ProductCardView;
 import android.content.Context;

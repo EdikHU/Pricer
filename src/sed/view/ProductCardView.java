@@ -1,6 +1,6 @@
 package sed.view;
 
-import sed.data.ModelProductCardView;
+import modelviews.ModelProductCardView;
 import android.content.Context;
 import android.view.View;
 import android.widget.FrameLayout;
