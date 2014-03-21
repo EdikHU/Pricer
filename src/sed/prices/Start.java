@@ -64,16 +64,16 @@ public class Start extends Activity {
 		});
 		layout.addView(btn2);
 		
-		Button btn3 = new Button(this);
-		btn3.setText("Del");
-		btn3.setOnClickListener(new OnClickListener() {
+		Button btnD = new Button(this);
+		btnD.setText("Del");
+		btnD.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
 				db.delAllData();
 				cursorRequery();
 			}
 		});
-		layout.addView(btn3);
+		layout.addView(btnD);
 		//------------
 		
 		ListView listView = new ListView(this);
@@ -82,6 +82,18 @@ public class Start extends Activity {
 		
 		adapter = new  ProductAdapterDB(this, db.getAllData(), true);
 		listView.setAdapter(adapter);
+		
+		/////////////////////////////
+		Button btn3 = new Button(this);
+		btn3.setText("Some");
+		btn3.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				System.out.println("here");
+			}
+		});
+		layout.addView(btn3);
+
 		
 	}
 	
