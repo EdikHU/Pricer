@@ -58,7 +58,7 @@ public class Start extends Activity {
 		btn2.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				db.add(new ProductCard("Любительская "+(""+new Date()).split("\\s")[3],"Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));
+				db.addProdCard(new ProductCard("Любительская "+(""+new Date()).split("\\s")[3],"Колбаса","Еда",new ListPrices(new Price( 299.56,"Пчелка",new Date()),new Price( 350,"Пятерочка",new Date()),new Price( 330,"Остап",new Date()),new Price( 305,"Ашан",new Date()))));
 				cursorRequery();
 			}
 		});
