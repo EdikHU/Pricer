@@ -7,6 +7,7 @@ import sed.view.ProductCardView;
 import android.content.Context;
 import android.database.Cursor;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
@@ -26,7 +27,14 @@ public class ProductAdapterDB extends CursorAdapter{
 
 	@Override
 	public void bindView(View view, Context context, Cursor cursor) {
+		view.setOnClickListener(null);
 		fillingViewFields((ProductCardView)view, DB.decode(cursor));
+		view.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				System.out.println("here +");
+			}
+		});
 	}
 	
 	private void fillingViewFields(ProductCardView view, ProductCard product) {

@@ -7,9 +7,13 @@ import sed.data.ListPrices;
 import sed.data.Price;
 import sed.data.ProductCard;
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,13 +24,14 @@ import android.widget.ListView;
 
 public class Start extends Activity {
 
+	private Context context;
 	private DB db;
 	private ProductAdapterDB adapter;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+		this.context = this;
 		setContentView(R.layout.start);
 		FrameLayout frLayout = (FrameLayout)findViewById(R.id.start);
 		
@@ -119,4 +124,20 @@ public class Start extends Activity {
 		}.execute();
 	}
 
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		menu.add(0,1,0,"add shop");
+		menu.add(0,2,0,"add price");
+		return super.onCreateOptionsMenu(menu);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		System.out.println("--> "+item.getItemId());
+		if (item.getItemId() == 1){
+			startActivity(new Intent(context, StartAddShop.class));
+		}
+		return super.onOptionsItemSelected(item);
+	}
 }

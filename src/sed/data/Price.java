@@ -4,25 +4,25 @@ import java.util.Date;
 
 public class Price {
 
-	float roubles;
-	String place;
+	float price;
+	String shop;
 	Date date; 
 	
-	public Price(float roubles, String place, Date date) {
-		this.roubles = roubles;
-		this.place = place;
+	public Price(float price, String shop, Date date) {
+		this.price = price;
+		this.shop = shop;
 		this.date = date;
 	}
 
-	public Price(double roubles, String place, Date date) {
-		this.roubles = (float)roubles;
-		this.place = place;
+	public Price(double price, String shop, Date date) {
+		this.price = (float)price;
+		this.shop = shop;
 		this.date = date;
 	}
 
 	@Override
 	public String toString() {
-		return "Price [roubles=" + roubles + ", place=" + place + ", date="
+		return "Price [price=" + price + ", shop=" + shop + ", date="
 				+ date + "]";
 	}
 
