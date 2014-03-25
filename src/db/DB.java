@@ -34,8 +34,8 @@ public class DB {
 	
 	
 	private static final String TABLE_SHOP = "table_shop";
-	private static final String T_SHOP_ID = "_id";
-	private static final String T_SHOP_NAME = "name";
+	public static final String T_SHOP_ID = "_id";
+	public static final String T_SHOP_NAME = "name";
 	private static final String DB_CREATE_TABLE_SHOP = "create table "+TABLE_SHOP+" ("+T_SHOP_ID+" integer primary key autoincrement, "+T_SHOP_NAME+" text )";
 	
 	
@@ -156,7 +156,7 @@ public class DB {
 	}
 
 	public static void shopRemoveItem(String string) {
-		db.delete(TABLE_SHOP, T_SHOP_NAME+"='"+string+"'", null);
+		db.delete(TABLE_SHOP, T_SHOP_ID+"='"+string+"'", null);
 	}
 	
 }

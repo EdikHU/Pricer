@@ -1,5 +1,6 @@
 package sed.prices;
 
+import sed.view.ShopView;
 import db.DB;
 import android.app.Activity;
 import android.content.Context;
@@ -7,11 +8,11 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CursorAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
 
 public class StartAddShop extends Activity{
 
@@ -19,7 +20,7 @@ public class StartAddShop extends Activity{
 	private Button okBtn;
 	private StartAddShop content;
 	private ListView lv;
-	private static SimpleCursorAdapter adapter;
+	private static ModCursorAdapter adapter;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +44,13 @@ public class StartAddShop extends Activity{
 				}
 				System.out.println("---- here ");
 				adapter.changeCursor(DB.getShopAll());
-				content.finish();
+				//content.finish();
 			}
 		});
 		
 		lv = (ListView)findViewById(R.id.start_add_shop_listView);
-		adapter = new ModSimpleCursorAdapter(getBaseContext(), R.layout.start_add_shop_item, DB.getShopAll(), new String[] {"name"}, new int[]{R.id.start_add_shop_item}, 0);
+		//adapter = new ModCursorAdapter(getBaseContext(), R.layout.start_add_shop_item, DB.getShopAll(), new String[] {"name"}, new int[]{R.id.start_add_shop_item}, 0);
+		adapter = new ModCursorAdapter(getBaseContext(), DB.getShopAll(), true);
 		lv.setAdapter(adapter );
 		//registerForContextMenu(lv);
 		
@@ -60,13 +62,12 @@ public class StartAddShop extends Activity{
 //		menu.add(0, 0, 0, "Here One");
 //	}
 	
-	static class ModSimpleCursorAdapter extends SimpleCursorAdapter{
+	static class ModCursorAdapter extends CursorAdapter{
 
-		public ModSimpleCursorAdapter(Context baseContext,
-				int startAddShopItem, Cursor shopAll, String[] strings,
-				int[] is, int i) {
-			super (baseContext,startAddShopItem,shopAll,strings,is, i);
+		public ModCursorAdapter(Context context, Cursor c, boolean autoRequery) {
+			super(context, c, autoRequery);
 		}
+
 
 		@Override
 		public void bindView(View cv, Context context, Cursor cursor) {
@@ -75,11 +76,17 @@ public class StartAddShop extends Activity{
 				@Override
 				public void onClick(View v) {
 					System.out.println("HERRREER");
-					DB.shopRemoveItem(((TextView)v).getText().toString());
+					//DB.shopRemoveItem(((TextView)v).getText().toString());
+					((ShopView)v).removeFromDB();
 					adapter.changeCursor(DB.getShopAll());
 				}
 			});
-		super.bindView(cv, context, cursor);
+			((ShopView)cv).setData(cursor);
+		}
+
+		@Override
+		public View newView(Context context, Cursor cursor, ViewGroup parent) {
+			return new ShopView(context);
 		}
 	}
 	
