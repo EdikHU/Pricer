@@ -10,8 +10,8 @@ import android.widget.TextView;
 public class ShopView extends FrameLayout{
 
 	private Context context;
-	private TextView tv;
-	private TextView tv2;
+	private TextView tvName;
+	private TextView tvId;
 
 	public ShopView(Context context) {
 		super(context);
@@ -23,24 +23,27 @@ public class ShopView extends FrameLayout{
 		LinearLayout la = new LinearLayout(context);
 		addView(la);
 		
-		tv = new TextView(context);
-		tv.setTag(DB.T_SHOP_NAME);
-		la.addView(tv);
+		tvName = new TextView(context);
+		tvName.setTag(DB.T_SHOP_NAME);
+		la.addView(tvName);
 
-		tv2 = new TextView(context);
-		tv2.setTag(DB.T_SHOP_ID);
-		la.addView(tv2);
+		tvId = new TextView(context);
+		tvId.setTag(DB.T_SHOP_ID);
+		la.addView(tvId);
 		
 	}
 
 	public void setData(Cursor cursor) {
-		tv2.setText(""+cursor.getLong(0));
-		tv.setText(cursor.getString(1));
-		System.out.println("HERE2 "+cursor.getColumnCount());
+		tvId.setText(""+cursor.getLong(0));
+		tvName.setText(cursor.getString(1));
 	}
 
 	public void removeFromDB() {
-		DB.shopRemoveItem(tv2.getText().toString());
+		DB.shopRemoveItem(tvId.getText().toString());
+	}
+
+	public String getName() {
+		return tvName.getText().toString();
 	}
 
 }

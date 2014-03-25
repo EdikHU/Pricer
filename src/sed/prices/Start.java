@@ -137,7 +137,10 @@ public class Start extends Activity {
 		System.out.println("--> "+item.getItemId());
 		if (item.getItemId() == 1){
 			startActivity(new Intent(context, StartAddShop.class));
+		}else if (item.getItemId() == 2){
+			startActivity(new Intent(context, StartAddPrice.class));
 		}
+
 		return super.onOptionsItemSelected(item);
 	}
 }

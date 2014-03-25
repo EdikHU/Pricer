@@ -23,6 +23,7 @@
             </intent-filter>
         </activity>
         <activity  android:name="StartAddShop"/>
+        <activity android:name="StartAddPrice"></activity>
     </application>
 
 </manifest>

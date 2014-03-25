@@ -142,7 +142,7 @@ public class DB {
 		return new ProductCard(c.getString(c.getColumnIndex(DB.T_PROD_NAME)), c.getString(c.getColumnIndex(DB.T_PROD_GROUP)), c.getString(c.getColumnIndex(DB.T_PROD_CATEGORY)), null);
 	}
 
-	public static void addShop(String str) {
+	public static void shopAddOrReplace(String str) {
 		Cursor c = db.query(TABLE_SHOP, null, T_SHOP_NAME+"='"+str+"'" , null, null, null, null);
 		if ( !c.moveToFirst() ){
 			ContentValues cv = new ContentValues();
